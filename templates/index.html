@@ -1,0 +1,57 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block mapaleaflet %}
+	{% load leaflet_tags %}
+	{% leaflet_js %}
+	{% leaflet_css %}
+{% endblock %}
+
+{% block css %}
+	<style type="text/css">
+		#gis {
+		width: 100%;
+		height: calc(100vh);
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/easy-button.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'allwhat/css/style.css' %}">
+{% endblock %}
+
+{% block jshead %}
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.js" ></script>
+	<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}" >	</script>
+	<script type="text/javascript" src="{% static 'dist/leaflet.ajax.js' %}" >	</script>
+	<script type="text/javascript" src="{% static 'leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js' %}" ></script>
+
+	<script type="text/javascript" src="{% static 'js/easy-button.js' %}" ></script>
+	<script type="text/javascript" src="{% static 'Leaflet.heat/leaflet-heat.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="container" style="margin:10px;">
+	<div class="row">
+		<div class="col-md-9">
+			<h1 style="aling:center;">PILLCO MARCA TURISMO</h1>
+		</div>
+		<div class="col-md-3 float-md-right">
+			<a  href="{% url 'login' %}" target="_blank">
+				<button type="button" class="btn btn-primary">Login</button>
+			</a>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block jsbody %}
+	{% leaflet_map "gis" callback="window.our_layers" %}
+	<script type="text/javascript">
+		$("#printBtn").click(function(){
+			$('#map').print();
+		});
+	</script>
+	<script type="text/javascript" src="http://leaflet.github.io/Leaflet.markercluster/example/realworld.10000.js"></script>
+	<script type="text/javascript" src="{% static 'allwhat/js/main.js' %}"></script>
+{% endblock %}
+

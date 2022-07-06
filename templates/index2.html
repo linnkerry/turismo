@@ -1,0 +1,131 @@
+<!--
+<!DOCTYPE html>
+<html>
+{% load static %}
+{% load leaflet_tags %}
+<head>
+	{% leaflet_js %}
+	{% leaflet_css %}
+	<title>Our Home</title>
+	<style type="text/css">
+		#gis {width: 100%;height:600px;}
+	</style>
+	<link rel="stylesheet" type="text/css" href="{% static 'routing/leaflet-routing-machine.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/easy-button.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'allwhat/css/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css">
+	<link rel="stylesheet" type="text/css" href=" {%static 'search-leafleat/leaflet-ais-tracksymbol-search.css' %}">
+
+	<script type="text/javascript" src="{% static 'dist/leaflet.ajax.js' %}" >	</script>
+	<script type="text/javascript" src="{% static 'leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js' %}" ></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{% static 'js/easy-button.js' %}" ></script>
+	<script type="text/javascript" src="{% static 'routing/leaflet-routing-machine.js' %}" ></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.js" ></script>
+	<script type="text/javascript" src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js" ></script>
+	<script type="text/javascript" src="{% static 'search-leafleat/leaflet-ais-tracksymbol-search.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'allwhat/js/accion.js' %}"></script>
+
+</head>
+
+
+<body>
+<div class="jaja">Am a hero. Am learning Geodjango </div>
+
+{% leaflet_map "gis" callback="window.our_layers" %}
+<script type="text/javascript">
+$("#printBtn").click(function(){
+  $('#map').print();
+});
+</script>
+
+<script type="text/javascript">
+	function our_layers(map,options){
+		var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				maxZoom: 17,
+				attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+			});
+		var OpenTopoMap = L.tileLayer('http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+			maxZoom: 17,
+			attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+		});
+
+
+		var points = new L.GeoJSON.AJAX("{% url 'incidences' %}",{
+			pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {
+                    icon: L.icon({
+                        iconUrl: "static/img/alerta.svg",
+                        iconSize: [24, 28],
+                        iconAnchor: [12, 28],
+                        popupAnchor: [0, -25]
+                    }),
+					title: feature.properties.NAME,
+                    riseOnHover: true
+                });
+            },
+			onEachFeature: function(feature,layer){
+				layer.bindPopup();
+			}
+
+		});
+
+		//datasets.addTo(map);
+		points.addTo(map);
+
+
+		var baseLayers = {
+			"OSM": osm,
+			"OpenTopoMap":OpenTopoMap
+		}
+
+		var groupedOverlays = {
+		  "Layers": {
+		    "incidences": points
+		  }
+
+		};
+
+		L.control.groupedLayers(baseLayers, groupedOverlays).addTo(map);
+		var routing =  L.Routing.control({
+		  waypoints: [
+		    L.latLng(-9.9306202, -76.2422333),
+		    L.latLng(-9.934950000000001, -76.234818)
+		  ]
+		}).addTo(map);
+
+
+		var routing =  L.Routing.control({
+		  waypoints: [
+		    L.latLng(-9.9306202, -76.2422333),
+		    L.latLng(-9.934274, -76.245718)
+		  ]
+		}).addTo(map);
+
+		//L.easyButton('fa-compass',
+		//  function (){
+		//    $('.leaflet-routing-container').is(':visible') ? routing.removeFrom(map) : routing.addTo(map)
+		//  },
+		//  'Routing'
+		//).addTo(map);
+
+
+		function createButton(label, container) {
+		    var btn = L.DomUtil.create('button', '', container);
+		    btn.setAttribute('type', 'button');
+		    btn.innerHTML = label;
+		    return btn;
+		}
+
+		$("div").remove(".leaflet-routing-container");
+		const search = new GeoSearch.GeoSearchControl({
+		  provider: new GeoSearch.OpenStreetMapProvider(),
+		});
+		map.addControl(search);
+	}
+
+</script>
+
+</body>
+</html>-->

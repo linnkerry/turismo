@@ -1,0 +1,133 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'allwhat/css/portal.css' %}">
+{% endblock css %}
+{% block jsb %}
+<script src="{% static 'allwhat/js/localizacion.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBh0f81P4tElzvvyFRmljeRrLpZ-b-8I_A&libraries=places&callback=initMap"
+        async defer></script>
+{% endblock jsb %}
+{% block content %}
+<div class="pac-card" id="pac-card">
+    <div>
+        <div class="container">
+            <div class="col-lg-6 col-md-6" style="margin-top:5px;">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Nueva Incidencia</button>
+            </div>
+        </div>
+        <div id="country-selector" class="pac-controls">
+        </div>
+    </div>
+    <div id="pac-container">
+        <input id="pac-input" class="form-control" type="text" placeholder="Ingrese Dirección">
+    </div>
+</div>
+<div id="map"></div>
+<div id="infowindow-content">
+    <img src="" width="16" height="16" id="place-icon">
+    <span id="place-name"  class="title"></span><br>
+    <span id="place-address"></span>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'incidencia' %}" method="post"> {% csrf_token %}
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label>Agraviado:</label>
+                            </div>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" id="documento"  name="documento" placeholder="Ingrese DNI">
+                            </div>
+                            <div class="col-lg-4">
+                                <a type="button" class="btn btn-primary" onclick="loadDoc()">Buscar</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" id="apepaterno" placeholder="Apellido Paterno" readonly required>
+                            </div>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" id="apematerno" placeholder="Apellido Materno" readonly required>
+                            </div>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" id="nombres" placeholder="Nombres" readonly required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="col-form-label">Agente:</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" onchange="crearpersona()" name="agente_id">
+                                    <option value="">Seleccionar Agente</option>
+                                    {% for inci in incidencias %}
+                                    <option value="{{ inci.id }}">{{inci.apepaterno}} {{ inci.apematerno }} {{ inci.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="col-form-label">Vehiculo:</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" name="vehiculo_id">
+                                    <option value="">Seleccionar Vehiculo</option>
+                                    {% for vehi in vehiculos %}
+                                    <option value="{{ vehi.id }}">{{vehi.get_modelo_display}} {{ vehi.placa }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label class="col-form-label">Tipo Incidencia:</label>
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" name="typeinsidence_id">
+                                    <option value="">Seleccionar Incidencia</option>
+                                    {% for typeince in typeincidence %}
+                                    <option value="{{ typeince.id }}">{{ typeince.descripcion }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <input type="hidden" id="latitude" name="latitude">
+                            <input type="hidden" id="longitude" name="longitude">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block jsbody %}
+<script src="{% static 'allwhat/js/localizacion.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBh0f81P4tElzvvyFRmljeRrLpZ-b-8I_A&libraries=places&callback=initMap"
+        async defer></script>
+{% endblock %}
+
