@@ -104,10 +104,10 @@ django_heroku.settings(locals())
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'd7h9n0ue4pdfnn',
-        'USER': 'aukswplcsypuqe',
-        'HOST': 'ec2-34-239-241-121.compute-1.amazonaws.com',
-        'PASSWORD': '50d3389ee5c7c53c02015053bb6b2e259ba26d841b6c69926f1d2882f2409281',
+        'NAME': 'dbbe8jvhuhqrhl',
+        'USER': 'lgzwyhzgyvpsnr',
+        'HOST': 'ec2-3-223-169-166.compute-1.amazonaws.com',
+        'PASSWORD': 'a90f8a4aa8fc5e84b2e08e0cbe871b42ccf02ec51c294fca2ad81519945c822e',
         'PORT': '5432',
     }
 }
