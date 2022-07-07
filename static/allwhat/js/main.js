@@ -54,6 +54,6 @@
 		    return btn;
 		}
         console.log(coordenadas);
-		addressPoints = addressPoints.map(function (p) { return [p[0], p[1]]; });
+		addressPoints = addressPoints.map(function (p) { return [p[1], p[0]]; });
         var heat = L.heatLayer(addressPoints).addTo(map);
     }
