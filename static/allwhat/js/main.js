@@ -19,7 +19,8 @@
 		var points = new L.GeoJSON.AJAX(url,{
 			pointToLayer: function (feature, latlng) {
 			    coordenadas.push(latlng.lng+','+latlng.lat);
-                return L.marker(latlng, {
+			    console.log(latlng)
+                return L.marker({lat: latlng.lng, lng: latlng.lat}, {
                     icon: L.icon({
                         iconUrl: loc.href+"static/img/alerta.svg",
                         iconSize: [24, 28],
