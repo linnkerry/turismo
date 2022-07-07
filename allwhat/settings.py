@@ -29,7 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '$wuoyq^fa@+)x0tiv_vey3jn(#rp6*9y3ofnmufpga1pco10o5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['www.movistar.com.pe','portal.allwhat.tk','192.168.0.2','127.0.0.1','192.168.100.170','200.121.142.119','localhost']
 
@@ -155,11 +155,12 @@ USE_TZ = False
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS =(
-    os.path.join(BASE_DIR,'static'),
-)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# STATICFILES_DIRS =(
+#     os.path.join(BASE_DIR,'static'),
+# )
 
 LEAFLET_CONFIG = {
     'DEFAULT_CENTER': (-9.9306202, -76.2422333),
