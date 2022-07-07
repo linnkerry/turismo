@@ -132,9 +132,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
+def gettext_noop(s):
+    return s
+# Set the default language for your site.
+LANGUAGE_CODE = 'en-us'
 
-LANGUAGE_CODE = 'es_PE'
-
+LANGUAGES = [
+("es", gettext_noop("Spanish")),
+]
 TIME_ZONE = 'America/Lima'
 
 USE_I18N = True
