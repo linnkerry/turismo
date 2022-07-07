@@ -21,7 +21,7 @@
 			    coordenadas.push(latlng.lat+','+latlng.lng);
                 return L.marker(latlng, {
                     icon: L.icon({
-                        iconUrl: loc.href+"static/leaflet/images/marker-icon.png",
+                        iconUrl: loc.href+"static/img/alerta.svg",
                         iconSize: [24, 28],
                         iconAnchor: [12, 28],
                         popupAnchor: [0, -25]
