@@ -21,7 +21,7 @@
 			    coordenadas.push(latlng.lng+','+latlng.lat);
                 return L.marker(latlng, {
                     icon: L.icon({
-                        iconUrl: "static/img/alerta.svg",
+                        iconUrl: url+"static/img/alerta.svg",
                         iconSize: [24, 28],
                         iconAnchor: [12, 28],
                         popupAnchor: [0, -25]
@@ -30,9 +30,9 @@
                     riseOnHover: true
                 });
             },
-			onEachFeature: function(feature,layer){
-				layer.bindPopup(""+feature.properties.typeinsidence+"");
-			}
+//			onEachFeature: function(feature,layer){
+//				layer.bindPopup(""+feature.properties.typeinsidence+"");
+//			}
 		});
 		//datasets.addTo(map);
 		points.addTo(map);
