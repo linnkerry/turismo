@@ -36,6 +36,7 @@
 		});
 		//datasets.addTo(map);
 		points.addTo(map);
+
 		var baseLayers = {
 			"OSM": osm,
 			"OpenTopoMap":OpenTopoMap
