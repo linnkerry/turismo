@@ -30,9 +30,9 @@
                     riseOnHover: true
                 });
             },
-//			onEachFeature: function(feature,layer){
-//				layer.bindPopup(""+feature.properties.typeinsidence+"");
-//			}
+			onEachFeature: function(feature,layer){
+				layer.bindPopup(""+feature.properties.typeinsidence+"");
+			}
 		});
 		//datasets.addTo(map);
 		points.addTo(map);
@@ -54,6 +54,6 @@
 		    return btn;
 		}
         console.log(coordenadas);
-		addressPoints = addressPoints.map(function (p) { return [p[1], p[0]]; });
+		addressPoints = addressPoints.map(function (p) { return [p[0], p[1]]; });
         var heat = L.heatLayer(addressPoints).addTo(map);
     }
